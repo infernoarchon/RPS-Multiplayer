@@ -1,0 +1,17 @@
+body {
+    background-color: #eee;
+}
+
+.wrapper {
+    margin: auto;
+    margin-top: 5%;
+}
+
+.game-card {
+    margin: auto;
+}
+
+
+
+
+/* Bootstrap Overrides */
