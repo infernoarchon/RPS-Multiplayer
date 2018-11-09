@@ -14,7 +14,7 @@ var config = {
   };
 firebase.initializeApp(config);
 var database = firebase.database()
-var playersentered;
+var playersentered = 0;
 var player1;
 var player2;
 
@@ -26,6 +26,14 @@ database.ref().on("value",function(snapshot) {
     console.log(activeplayers)
     if(playersentered > 0) {
     ref.onDisconnect().set(activeplayers - 1)
+    }
+    if(playersentered === 2) {
+        $("#join-button").removeClass("btn-primary")
+        $("#join-button").addClass("btn-secondary")
+    }
+    if(playersentered < 2) {
+        $("#join-button").removeClass("btn-secondary")
+        $("#join-button").addClass("btn-primary")
     }
 })
 
@@ -49,9 +57,6 @@ var rps = {
         rps.initplayer1()
          }
         if (playersentered === 2) {
-        $(document).off("click")
-        $("#join-button").removeClass("btn-primary")
-        $("#join-button").addClass("btn-secondary")
         player2 = $("#name-input").val().trim()
         database.ref().update({
             playersentered : playersentered
