@@ -75,3 +75,5 @@ var rps = {
         console.log("genereate player2's UI")
     }
 }
+
+// Separate UIs with divs and button IDs which are visible depending on the order of coming in
