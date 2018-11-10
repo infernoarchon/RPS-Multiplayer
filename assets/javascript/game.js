@@ -82,6 +82,11 @@ var rps = {
                 choice: "none",
                 name : player1,
                 wins : 0
+            },
+            player2 : {
+                choice: "none",
+                name : "________",
+                wins : 0
             }
         })
         database.ref().update({
@@ -121,9 +126,13 @@ var rps = {
     },
     initplayer1 : function() {
         console.log("generate player1's UI")
+        $("#player1-card").removeClass("invisible")
+        $("#intro-card").addClass("invisible")
     },
     initplayer2 : function() {
         console.log("genereate player2's UI")
+        $("#player2-card").removeClass("invisible")
+        $("#intro-card").addClass("invisible")
     },
     gamelogic : function(x) {
         // Get player 1 choice
@@ -139,13 +148,47 @@ var rps = {
                 gamestatus :  player2name + "'s turn"
             })
         }
+        if (x === "player1-paper" && playerturn === 1) {
+            database.ref('players/player1').update({
+                    choice : "paper"
+            })
+            playerturn++
+            database.ref().update({
+                turn : playerturn
+            })
+            database.ref().update({
+                gamestatus :  player2name + "'s turn"
+            })
+        }
+        if (x === "player1-scissors" && playerturn === 1) {
+            database.ref('players/player1').update({
+                    choice : "scissors"
+            })
+            playerturn++
+            database.ref().update({
+                turn : playerturn
+            })
+            database.ref().update({
+                gamestatus :  player2name + "'s turn"
+            })
+        }
         // Get player 2 choice
+        if (x === "player2-rock" && playerturn === 2) {
+            database.ref('players/player2').update({
+                    choice : "rock"
+            })
+        }
+        if (x === "player2-paper" && playerturn === 2) {
+            database.ref('players/player2').update({
+                    choice : "paper"
+            })
+        }
         if (x === "player2-scissors" && playerturn === 2) {
             database.ref('players/player2').update({
                     choice : "scissors"
             })
         }
-        // Analyze result
+        // Analyze result if player 1 chooses rock
         if (player1choice === "rock" && player2choice === "scissors" && playerturn === 2) {
             player1wins++
             database.ref('players/player1').update({
@@ -159,6 +202,102 @@ var rps = {
                 turn : playerturn
             })
         }
+        if (player1choice === "rock" && player2choice === "rock" && playerturn === 2) {
+            database.ref().update({
+                gamestatus : "It's a draw!"
+            })
+            playerturn++
+            database.ref().update({
+                turn : playerturn
+            })
+        }
+        if (player1choice === "rock" && player2choice === "paper" && playerturn === 2) {
+            player2wins++
+            database.ref('players/player2').update({
+                wins : player2wins
+            })
+            database.ref().update({
+                gamestatus : player2name + " wins!"
+            })
+            playerturn++
+            database.ref().update({
+                turn : playerturn
+            })
+        }
+         // Analyze result if player 1 chooses paper
+         if (player1choice === "paper" && player2choice === "rock" && playerturn === 2) {
+            player1wins++
+            database.ref('players/player1').update({
+                wins : player1wins
+            })
+            database.ref().update({
+                gamestatus : player1name + " wins!"
+            })
+            playerturn++
+            database.ref().update({
+                turn : playerturn
+            })
+        }
+        if (player1choice === "paper" && player2choice === "paper" && playerturn === 2) {
+            database.ref().update({
+                gamestatus : "It's a draw!"
+            })
+            playerturn++
+            database.ref().update({
+                turn : playerturn
+            })
+        }
+        if (player1choice === "paper" && player2choice === "scissors" && playerturn === 2) {
+            player2wins++
+            database.ref('players/player2').update({
+                wins : player2wins
+            })
+            database.ref().update({
+                gamestatus : player2name + " wins!"
+            })
+            playerturn++
+            database.ref().update({
+                turn : playerturn
+            })
+        }
+         // Analyze result if player 1 chooses scissors
+         if (player1choice === "scissors" && player2choice === "paper" && playerturn === 2) {
+            player1wins++
+            database.ref('players/player1').update({
+                wins : player1wins
+            })
+            database.ref().update({
+                gamestatus : player1name + " wins!"
+            })
+            playerturn++
+            database.ref().update({
+                turn : playerturn
+            })
+        }
+        if (player1choice === "scissors" && player2choice === "scissors" && playerturn === 2) {
+            database.ref().update({
+                gamestatus : "It's a draw!"
+            })
+            playerturn++
+            database.ref().update({
+                turn : playerturn
+            })
+        }
+        if (player1choice === "scissors" && player2choice === "rock" && playerturn === 2) {
+            player2wins++
+            database.ref('players/player2').update({
+                wins : player2wins
+            })
+            database.ref().update({
+                gamestatus : player2name + " wins!"
+            })
+            playerturn++
+            database.ref().update({
+                turn : playerturn
+            })
+        }
+
+        // Print result for 5 seconds and cleanup
         if (playerturn === 3) {
             setTimeout(rps.cleanup, 5000)
         }
