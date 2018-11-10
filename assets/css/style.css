@@ -2,6 +2,15 @@ body {
     background-color: #eee;
 }
 
+img {
+    height: 7em;
+    width: auto;
+}
+
+h5 {
+    color: #999;
+}
+
 .wrapper {
     margin: auto;
     margin-top: 5%;
@@ -15,7 +24,7 @@ body {
     display:none;
 }
 
-#player1-choice, #player2-choice {
+.graphic-wrapper {
     height: 16rem;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -23,6 +32,10 @@ body {
 
 #player1-card, #player2-card {
     background-color: #fff;
+}
+
+#player1-enemy-choice, #player2-enemy-choice, #player1-choice, #player2-choice {
+    margin: auto;
 }
 
 

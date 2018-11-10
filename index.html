@@ -10,7 +10,7 @@
         <div class="wrapper col-11 col-md-5 col-lg-4">
             <div id="intro-card" class="game-card card shadow">
                 <div class="card-body text-center">
-                  <h5 class="card-title">Rock Paper Scissors</h5>
+                  <h4 class="card-title">Rock Paper Scissors</h4>
                   <div class="form-group">
                     <input type="name" class="form-control" id="name-input" aria-describedby="nameHelp" placeholder="Enter your name">
                   </div>
@@ -20,9 +20,12 @@
 
               <div id="player1-card" class="game-card card invisible shadow">
                 <div class="card-body text-center">
-                  <h5 class="card-title"><span id="player2-enemy-name"></span> : <span id="player2-enemy-score"></span></h5>
-                  <div id="player1-choice"></div>
-                  <h5 class="card-title mt-3"><span id="player1-name"></span> : <span id="player1-score"></span></h5>
+                  <h4 class="card-title"><span id="player2-enemy-name"></span> : <span id="player2-enemy-score"></span></h4>
+                  <div class="graphic-wrapper d-flex flex-column">
+                        <div id="player2-enemy-choice" class="align-self-start"><img id="player2-ec" src="assets/images/blank.svg"></div>
+                        <div id="player1-choice" class="align-self-end"><img id="player1-c"></div>
+                  </div>
+                  <h4 class="card-title mt-3"><span id="player1-name"></span> : <span id="player1-score"></span></h4>
                   <div class="btn-group btn-group-lg" role="group" aria-label="Game controls">
                     <button id="player1-rock" type="button" class="btn btn-secondary game-control">Rock</button>
                     <button id="player1-paper" type="button" class="btn btn-secondary game-control">Paper</button>
@@ -34,9 +37,12 @@
 
               <div id="player2-card" class="game-card card invisible shadow">
                 <div class="card-body text-center">
-                  <h5 class="card-title"><span id="player1-enemy-name"></span> : <span id="player1-enemy-score"></span></h5>
-                  <div id="player2-choice"></div>
-                  <h5 class="card-title mt-3"><span id="player2-name"></span> : <span id="player2-score"></span></h5>
+                  <h4 class="card-title"><span id="player1-enemy-name"></span> : <span id="player1-enemy-score"></span></h4>
+                  <div class="graphic-wrapper d-flex flex-column">
+                        <div id="player1-enemy-choice" class="align-self-start"><img id="player1-ec"></div>
+                        <div id="player2-choice" class="align-self-end"><img id="player2-c"></div>
+                  </div>
+                  <h4 class="card-title mt-3"><span id="player2-name"></span> : <span id="player2-score"></span></h4>
                   <div class="btn-group btn-group-lg" role="group" aria-label="Game controls">
                     <button id="player2-rock" type="button" class="btn btn-secondary game-control">Rock</button>
                     <button id="player2-paper" type="button" class="btn btn-secondary game-control">Paper</button>

@@ -27,7 +27,9 @@ var player1wins = 0;
 var player2wins = 0;
 var player1name;
 var player2name;
-var gamestatusdisplay
+var gamestatusdisplay;
+var player1imagedisplay = true;
+var player2imageurl;
 
 var play = database.ref("players")
 var ref = database.ref("playersentered")
@@ -43,6 +45,8 @@ database.ref().on("value",function(snapshot) {
     player1name = snapshot.val().players.player1.name
     player2name = snapshot.val().players.player2.name
     gamestatusdisplay = snapshot.val().gamestatus
+    player1imagedisplay = snapshot.val().player1image
+    player2imageurl = snapshot.val().player2img
     $(".game-status").text(gamestatusdisplay)
     $("#join-button").text("Join Room " + playersentered + "/2")
     $("#player1-enemy-name").text(snapshot.val().players.player1.name)
@@ -60,6 +64,20 @@ database.ref().on("value",function(snapshot) {
         $("#join-button").removeClass("btn-secondary")
         $("#join-button").addClass("btn-primary")
         ref.onDisconnect().set(activeplayers - 1)
+    }
+    if(playerturn === 1 && player1imagedisplay === false) {
+        player1imagedisplay = true
+        $("#player1-c").attr("src","")
+        $("#player2-ec").attr("src","./assets/images/blank.svg")
+    }
+    if(player2imageurl === "showrock") {
+        $("#player2-ec").attr("src","./assets/images/enemyRock.svg")
+    }
+    if(player2imageurl === "showpaper") {
+        $("#player2-ec").attr("src","./assets/images/enemyPaper.svg")
+    }
+    if(player2imageurl === "showscissors") {
+        $("#player2-ec").attr("src","./assets/images/enemyScissors.svg")
     }
 })
 
@@ -92,6 +110,7 @@ var rps = {
         database.ref().update({
             gamestatus : "Waiting for additional players"
         })
+        $("#player2-ec").attr("src","./assets/images/blank.svg")
         // Remove when finished with player 2
         database.ref().update({
             turn : 0
@@ -145,6 +164,7 @@ var rps = {
             database.ref().update({
                 gamestatus :  player2name + "'s turn"
             })
+            $("#player1-c").attr("src","./assets/images/playerRock.svg")
         }
         if (x === "player1-paper" && playerturn === 1) {
             database.ref('players/player1').update({
@@ -157,6 +177,7 @@ var rps = {
             database.ref().update({
                 gamestatus :  player2name + "'s turn"
             })
+            $("#player1-c").attr("src","./assets/images/playerPaper.svg")
         }
         if (x === "player1-scissors" && playerturn === 1) {
             database.ref('players/player1').update({
@@ -169,22 +190,26 @@ var rps = {
             database.ref().update({
                 gamestatus :  player2name + "'s turn"
             })
+            $("#player1-c").attr("src","./assets/images/playerScissors.svg")
         }
         // Get player 2 choice
         if (x === "player2-rock" && playerturn === 2) {
             database.ref('players/player2').update({
                     choice : "rock"
             })
+            $("#player2-c").attr("src","./assets/images/playerRock.svg")
         }
         if (x === "player2-paper" && playerturn === 2) {
             database.ref('players/player2').update({
                     choice : "paper"
             })
+            $("#player2-c").attr("src","./assets/images/playerPaper.svg")
         }
         if (x === "player2-scissors" && playerturn === 2) {
             database.ref('players/player2').update({
                     choice : "scissors"
             })
+            $("#player2-c").attr("src","./assets/images/playerScissors.svg")
         }
         // Analyze result if player 1 chooses rock
         if (player1choice === "rock" && player2choice === "scissors" && playerturn === 2) {
@@ -199,6 +224,11 @@ var rps = {
             database.ref().update({
                 turn : playerturn
             })
+            database.ref().update({
+                player2img : "showscissors"
+            })
+            $("#player1-ec").attr("src","./assets/images/enemyRock.svg")
+            
         }
         if (player1choice === "rock" && player2choice === "rock" && playerturn === 2) {
             database.ref().update({
@@ -208,6 +238,10 @@ var rps = {
             database.ref().update({
                 turn : playerturn
             })
+            database.ref().update({
+                player2img : "showrock"
+            })
+            $("#player1-ec").attr("src","./assets/images/enemyRock.svg")
         }
         if (player1choice === "rock" && player2choice === "paper" && playerturn === 2) {
             player2wins++
@@ -221,6 +255,10 @@ var rps = {
             database.ref().update({
                 turn : playerturn
             })
+            database.ref().update({
+                player2img : "showpaper"
+            })
+            $("#player1-ec").attr("src","./assets/images/enemyRock.svg")
         }
          // Analyze result if player 1 chooses paper
          if (player1choice === "paper" && player2choice === "rock" && playerturn === 2) {
@@ -235,6 +273,10 @@ var rps = {
             database.ref().update({
                 turn : playerturn
             })
+            database.ref().update({
+                player2img : "showrock"
+            })
+            $("#player1-ec").attr("src","./assets/images/enemyPaper.svg")
         }
         if (player1choice === "paper" && player2choice === "paper" && playerturn === 2) {
             database.ref().update({
@@ -244,6 +286,11 @@ var rps = {
             database.ref().update({
                 turn : playerturn
             })
+            database.ref().update({
+                player2img : "showpaper"
+            })
+            $("#player1-ec").attr("src","./assets/images/enemyPaper.svg")
+
         }
         if (player1choice === "paper" && player2choice === "scissors" && playerturn === 2) {
             player2wins++
@@ -257,6 +304,11 @@ var rps = {
             database.ref().update({
                 turn : playerturn
             })
+            database.ref().update({
+                player2img : "showscissors"
+            })
+            $("#player1-ec").attr("src","./assets/images/enemyPaper.svg")
+
         }
          // Analyze result if player 1 chooses scissors
          if (player1choice === "scissors" && player2choice === "paper" && playerturn === 2) {
@@ -271,6 +323,10 @@ var rps = {
             database.ref().update({
                 turn : playerturn
             })
+            database.ref().update({
+                player2img : "showpaper"
+            })
+            $("#player1-ec").attr("src","./assets/images/enemyScissors.svg")
         }
         if (player1choice === "scissors" && player2choice === "scissors" && playerturn === 2) {
             database.ref().update({
@@ -280,6 +336,11 @@ var rps = {
             database.ref().update({
                 turn : playerturn
             })
+            database.ref().update({
+                player2img : "showscissors"
+            })
+            $("#player1-ec").attr("src","./assets/images/enemyScissors.svg")
+
         }
         if (player1choice === "scissors" && player2choice === "rock" && playerturn === 2) {
             player2wins++
@@ -293,6 +354,11 @@ var rps = {
             database.ref().update({
                 turn : playerturn
             })
+            database.ref().update({
+                player2img : "showrock"
+            })
+            $("#player1-ec").attr("src","./assets/images/enemyScissors.svg")
+
         }
 
         // Print result for 5 seconds and cleanup
@@ -315,6 +381,13 @@ var rps = {
         database.ref('players/player2').update({
             choice : "none"
         })
+        database.ref().update({
+            player1image : false,
+            player2img: "none"
+        })
+        $("#player2-c").attr("src","")
+        $("#player1-ec").attr("src","")
+
     }
     
 }
