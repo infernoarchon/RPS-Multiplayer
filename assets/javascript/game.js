@@ -125,12 +125,10 @@ var rps = {
         }
     },
     initplayer1 : function() {
-        console.log("generate player1's UI")
         $("#player1-card").removeClass("invisible")
         $("#intro-card").addClass("invisible")
     },
     initplayer2 : function() {
-        console.log("genereate player2's UI")
         $("#player2-card").removeClass("invisible")
         $("#intro-card").addClass("invisible")
     },

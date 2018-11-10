@@ -16,7 +16,13 @@ body {
 }
 
 #player1-choice, #player2-choice {
-    height: 20rem;
+    height: 16rem;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+#player1-card, #player2-card {
+    background-color: #fff;
 }
 
 
