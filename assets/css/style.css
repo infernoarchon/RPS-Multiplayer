@@ -11,6 +11,10 @@ body {
     margin: auto;
 }
 
+.invisible {
+    display:none;
+}
+
 
 
 
